@@ -11,7 +11,7 @@ import com.myfood.springboot_myfood.domain.reserva.model.ReservaModel;
 public interface ReservaRepository extends JpaRepository<ReservaModel, Long> {
     @Query(value = "SELECT fecha FROM festivos", nativeQuery = true)
     public List<?> getHolidays();
-    
-    @Query(value = "SELECT r.fecha FROM reservas r GROUP BY r.fecha HAVING (SUM(r.n_comensales) + :comensales) > 50;", nativeQuery = true)
-    List<?> getBannedDays(@Param("comensales") Integer comensales);
+
+    @Query(value = "SELECT r.fecha FROM reservas r GROUP BY r.fecha, r.tipo HAVING (SUM(r.n_comensales) + :comensales) > 50 AND r.tipo = :servicio", nativeQuery = true)
+    List<?> getBannedDays(@Param("comensales") Integer comensales, @Param("servicio") String servicio);
 }

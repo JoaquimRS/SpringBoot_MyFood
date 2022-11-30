@@ -1,7 +1,6 @@
 package com.myfood.springboot_myfood.domain.reserva.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +18,14 @@ public class ReservaController {
     ReservaRepository repository;
 
     @GetMapping
-    List<Object> getHolidays(@RequestParam Integer comensales) {
+    List<Object> getHolidays(@RequestParam Integer comensales, @RequestParam String servicio) {
         List<Object> finalList = new ArrayList<Object>();
 
         for(Object holiday : this.repository.getHolidays()) {
             finalList.add(holiday);
         }
 
-        for(Object bannedDay : this.repository.getBannedDays(comensales)) {
+        for(Object bannedDay : this.repository.getBannedDays(comensales, servicio)) {
             finalList.add(bannedDay);
         }
 
