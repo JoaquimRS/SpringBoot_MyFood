@@ -14,4 +14,7 @@ public interface ReservaRepository extends JpaRepository<ReservaModel, Long> {
 
     @Query(value = "SELECT r.fecha FROM reservas r GROUP BY r.fecha, r.tipo HAVING (SUM(r.n_comensales) + :comensales) > 50 AND r.tipo = :servicio", nativeQuery = true)
     List<?> getBannedDays(@Param("comensales") Integer comensales, @Param("servicio") String servicio);
+
+    @Query(value = "SELECT * FROM reservas r WHERE id_reserva = :reserva", nativeQuery = true)
+    ReservaModel getReserva(@Param("reserva") String reserva);
 }
