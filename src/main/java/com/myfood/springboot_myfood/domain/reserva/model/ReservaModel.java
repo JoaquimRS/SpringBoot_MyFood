@@ -3,8 +3,6 @@ package com.myfood.springboot_myfood.domain.reserva.model;
 import java.sql.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -24,8 +22,8 @@ import lombok.Setter;
 @Table(name = "reservas")
 public class ReservaModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id_reserva;
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id_reserva = "ID_RESERVA";
 
     private String id_cliente;
     private Date fecha;

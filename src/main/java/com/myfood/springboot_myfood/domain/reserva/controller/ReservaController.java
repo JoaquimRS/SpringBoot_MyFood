@@ -81,22 +81,6 @@ public class ReservaController {
     @PostMapping
     public ResponseEntity<?> postReserve(@RequestBody ReservaModel model) {
         model.setId_reserva(IdGenerator.generateWithLength(10));
-
-        // this.repository.save(model);
-        return new ResponseEntity<>(model, HttpStatus.OK);
-
-        // this.repository.save(model);
-
-        // ReservaModel reserved = this.repository.getReserva(model.getId_reserva());
-
-
-        // if (reserved != null) {
-        //     JsonObject json = new JsonObject();
-        //     json.addProperty("msg", "Saved");
-
-        //     return new ResponseEntity<>(json.getAsString(), HttpStatus.OK);
-        // }
-
-        // return new ResponseEntity<>(model, HttpStatus.OK);
+        return new ResponseEntity<>(this.repository.save(model), HttpStatus.OK);
     }
 }

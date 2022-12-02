@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.google.gson.JsonObject;
 import com.myfood.springboot_myfood.domain.reserva.model.ReservaModel;
 
 public interface ReservaRepository extends JpaRepository<ReservaModel, Long> {
@@ -17,4 +18,7 @@ public interface ReservaRepository extends JpaRepository<ReservaModel, Long> {
 
     @Query(value = "SELECT * FROM reservas r WHERE id_reserva = :reserva", nativeQuery = true)
     ReservaModel getReserva(@Param("reserva") String reserva);
+
+    @Query(value = "INSERT INTO reservas VALUES (:obj_reserva)", nativeQuery = true)
+    void saveReserve(@Param("obj_reserva") ReservaModel obj_reserva);
 }
