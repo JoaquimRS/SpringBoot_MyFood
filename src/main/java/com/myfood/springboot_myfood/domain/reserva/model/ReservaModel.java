@@ -2,13 +2,14 @@ package com.myfood.springboot_myfood.domain.reserva.model;
 
 import java.sql.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.myfood.springboot_myfood.domain.reserva.dto.ReservaDto;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,5 +38,14 @@ public class ReservaModel {
         Gson gson = builder.create();
 
         return gson.toJson(this);
+    }
+
+    public ReservaModel(ReservaDto model) {
+        this.estado = model.getEstado();
+        this.fecha = model.getFecha();
+        this.id_cliente = model.getId_cliente();
+        this.id_reserva = model.getId_reserva();
+        this.n_comensales = model.getN_comensales();
+        this.tipo = model.getTipo();
     }
 }

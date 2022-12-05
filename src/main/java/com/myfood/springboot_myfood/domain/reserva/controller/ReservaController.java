@@ -10,25 +10,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.myfood.springboot_myfood.domain.reserva.dto.ReservaDto;
 import com.myfood.springboot_myfood.domain.reserva.model.ReservaModel;
-import com.myfood.springboot_myfood.domain.reserva.payload.ReservaPDFResponse;
 import com.myfood.springboot_myfood.domain.reserva.repository.ReservaRepository;
+import com.myfood.springboot_myfood.errors.Error;
 import com.myfood.springboot_myfood.plugins.IdGenerator;
 
 @RestController
+@RequestMapping("/asdf")
 @CrossOrigin(origins = "*")
 public class ReservaController {
     @Autowired
@@ -38,49 +33,50 @@ public class ReservaController {
 
     @GetMapping
     List<Object> getHolidays(@RequestParam Integer comensales, @RequestParam String servicio) {
-        List<Object> finalList = new ArrayList<Object>();
+        List<Object> finalList = new ArrayList<>();
 
-        for(Object holiday : this.repository.getHolidays()) {
-            finalList.add(holiday);
-        }
-
-        for(Object bannedDay : this.repository.getBannedDays(comensales, servicio)) {
-            finalList.add(bannedDay);
-        }
+        finalList.addAll(this.repository.getHolidays());
+        finalList.addAll(this.repository.getBannedDays(comensales, servicio));
 
         return finalList;
     }
 
-    @GetMapping(value = "/test",   produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/test", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getImage() throws IOException {
         InputStream in = getClass().getResourceAsStream("../../../assets/test.jpg");
 
+        assert in != null;
         return IOUtils.toByteArray(in);
     }
-
-    @GetMapping("/reservas/{id_reserva}")
+    
+    @GetMapping(value ="/getReserva/{id_reserva}")
     public ResponseEntity<?> getReserva(@PathVariable String id_reserva) {
         List<JsonObject> list = new ArrayList<>();
         ReservaModel model = this.repository.getReserva(id_reserva);
 
         JsonElement json = gson.fromJson(model.toString(), JsonElement.class);
-        
+
         json.getAsJsonObject().entrySet().forEach(e -> {
             JsonObject jsonE = new JsonObject();
-            
-            if (e.getKey().equals("tipo")|| e.getKey().equals("fecha") || e.getKey().equals("n_comensales")) {
+
+            if (e.getKey().equals("tipo") || e.getKey().equals("fecha") || e.getKey().equals("n_comensales")) {
                 jsonE.addProperty(e.getKey(), e.getValue().getAsString());
                 list.add(jsonE);
             }
         });
 
-
         return new ResponseEntity<>(list.toString(), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<?> postReserve(@RequestBody ReservaModel model) {
+    public ResponseEntity<?> postReserve(@RequestBody ReservaDto model) {
         model.setId_reserva(IdGenerator.generateWithLength(10));
-        return new ResponseEntity<>(this.repository.save(model), HttpStatus.OK);
+
+        if (this.repository.checkReserve(model.getId_cliente(), model.getTipo(), model.getFecha()).size() > 0) {
+            return new ResponseEntity<>(Error.CLIENT_RESERVE_SAME_SERVICE.getMessage(), Error.CLIENT_RESERVE_SAME_SERVICE.getStatus());
+        }
+
+        ReservaModel reserva = new ReservaModel(model);
+        return new ResponseEntity<>(this.repository.save(reserva), HttpStatus.OK);
     }
 }
