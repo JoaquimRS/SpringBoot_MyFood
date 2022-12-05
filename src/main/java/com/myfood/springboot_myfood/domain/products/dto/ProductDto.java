@@ -1,33 +1,40 @@
-package com.myfood.springboot_myfood.domain.pedidos.dto;
+package com.myfood.springboot_myfood.domain.products.dto;
 
+import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import com.myfood.springboot_myfood.domain.products.entity.CategoryEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @Builder
-public class ProductoDto {
+public class ProductDto {
     @NotNull
     private String id_producto;
-    
-    private String slug;
+
+    @NotNull
+    private String imagen;
 
     @NotNull
     private String nombre;
+
     @NotNull
-    private Currency precio;
-    @NotNull
-    private String imagen;
+    private BigDecimal precio;
+
+    private String slug;
+
+    private List<String> categorias;
+
+    private List<String> alergenos;
 
     @Getter
     @Setter
@@ -43,7 +50,7 @@ public class ProductoDto {
     @Builder
     @AllArgsConstructor
     public static class MultipleProductos {
-        private List<ProductoDto> productos;
+        private List<ProductDto> productos;
     }
 
 }
