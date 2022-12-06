@@ -1,6 +1,10 @@
 package com.myfood.springboot_myfood.domain.products.controller;
 
+import com.myfood.springboot_myfood.domain.products.dto.AllergenDto;
+import com.myfood.springboot_myfood.domain.products.dto.CategoryDto;
 import com.myfood.springboot_myfood.domain.products.dto.ProductDto;
+import com.myfood.springboot_myfood.domain.products.service.AllergenService;
+import com.myfood.springboot_myfood.domain.products.service.CategoryService;
 import com.myfood.springboot_myfood.domain.products.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +15,62 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/products")
-@RequiredArgsConstructor
 public class ProductController {
-    private final ProductService pService;
+    @Autowired
+    private ProductService pService;
+
+    @Autowired
+    private AllergenService aService;
+
+    @Autowired
+    private CategoryService cService;
 
     @GetMapping("/test")
     public ProductDto.MultipleProductos getProducts() {
-        return ProductDto.MultipleProductos.builder().productos(pService.getProductos()).build();
+        return ProductDto.MultipleProductos
+                .builder()
+                .productos(pService.getProductos())
+                .build();
+    }
+
+    @GetMapping("/test/{id_producto}")
+    public ProductDto.SingleProducto getProductoById(@PathVariable String id_producto) {
+        return ProductDto.SingleProducto
+                .builder()
+                .producto(pService.getProductById(id_producto))
+                .build();
+    }
+
+    @GetMapping("/test_alergenos")
+    public AllergenDto.MultipleAllergens getAllergens() {
+        return AllergenDto.MultipleAllergens
+                .builder()
+                .allergens(aService.getAllergens())
+                .build();
+    }
+
+    @GetMapping("/test_alergenos/{id_alergeno}")
+    public AllergenDto.SingleAllergen getAlergeno(@PathVariable String id_alergeno) {
+        return AllergenDto.SingleAllergen
+                .builder()
+                .allergen(aService.getAllergenById(id_alergeno))
+                .build();
+    }
+
+    @GetMapping("/test/categories")
+    public CategoryDto.MultipleCategories getCategories() {
+        return CategoryDto.MultipleCategories
+                .builder()
+                .categories(cService.getCategories())
+                .build();
+    }
+
+    @GetMapping("/test/categories/{id_category}")
+    public CategoryDto.SingleCategory getCategory(@PathVariable String id_category) {
+        return CategoryDto.SingleCategory.
+                builder()
+                .category(cService.getCategoryById(id_category))
+                .build();
     }
 
 }

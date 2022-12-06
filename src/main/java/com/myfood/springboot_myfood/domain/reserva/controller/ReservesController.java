@@ -1,10 +1,12 @@
 package com.myfood.springboot_myfood.domain.reserva.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.myfood.springboot_myfood.domain.reserva.service.ReserveService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,45 +18,40 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.myfood.springboot_myfood.domain.reserva.dto.ReservaDto;
-import com.myfood.springboot_myfood.domain.reserva.model.ReservaModel;
-import com.myfood.springboot_myfood.domain.reserva.repository.ReservaRepository;
+import com.myfood.springboot_myfood.domain.reserva.dto.ReserveDto;
+import com.myfood.springboot_myfood.domain.reserva.entity.ReserveEntity;
 import com.myfood.springboot_myfood.errors.Error;
 import com.myfood.springboot_myfood.plugins.IdGenerator;
 
+import javax.imageio.ImageIO;
+
 @RestController
-@RequestMapping("/asdf")
+@RequestMapping("/reservas")
 @CrossOrigin(origins = "*")
-public class ReservaController {
+public class ReservesController {
     @Autowired
-    ReservaRepository repository;
+    private ReserveService reserveService;
     GsonBuilder builder = new GsonBuilder();
     Gson gson = builder.create();
 
-    @GetMapping
+    @GetMapping("/getBannedDays")
     List<Object> getHolidays(@RequestParam Integer comensales, @RequestParam String servicio) {
-        List<Object> finalList = new ArrayList<>();
-
-        finalList.addAll(this.repository.getHolidays());
-        finalList.addAll(this.repository.getBannedDays(comensales, servicio));
-
-        return finalList;
+        return this.reserveService.getHolidays(comensales, servicio);
     }
 
-    @GetMapping(value = "/test", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/image", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getImage() throws IOException {
-        InputStream in = getClass().getResourceAsStream("../../../assets/test.jpg");
-
-        assert in != null;
+        InputStream in = getClass()
+                .getResourceAsStream("../../../assets/test.jpg");
         return IOUtils.toByteArray(in);
     }
     
     @GetMapping(value ="/getReserva/{id_reserva}")
     public ResponseEntity<?> getReserva(@PathVariable String id_reserva) {
+        ReserveDto reserve = this.reserveService.getReserve(id_reserva);
         List<JsonObject> list = new ArrayList<>();
-        ReservaModel model = this.repository.getReserva(id_reserva);
 
-        JsonElement json = gson.fromJson(model.toString(), JsonElement.class);
+        JsonElement json = gson.fromJson(reserve.toString(), JsonElement.class);
 
         json.getAsJsonObject().entrySet().forEach(e -> {
             JsonObject jsonE = new JsonObject();
@@ -68,15 +65,15 @@ public class ReservaController {
         return new ResponseEntity<>(list.toString(), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<?> postReserve(@RequestBody ReservaDto model) {
-        model.setId_reserva(IdGenerator.generateWithLength(10));
-
-        if (this.repository.checkReserve(model.getId_cliente(), model.getTipo(), model.getFecha()).size() > 0) {
-            return new ResponseEntity<>(Error.CLIENT_RESERVE_SAME_SERVICE.getMessage(), Error.CLIENT_RESERVE_SAME_SERVICE.getStatus());
-        }
-
-        ReservaModel reserva = new ReservaModel(model);
-        return new ResponseEntity<>(this.repository.save(reserva), HttpStatus.OK);
-    }
+//    @PostMapping
+//    public ResponseEntity<?> postReserve(@RequestBody ReserveDto model) {
+//        model.setId_reserva(IdGenerator.generateWithLength(10));
+//
+//        if (this.repository.checkReserve(model.getId_cliente(), model.getTipo(), model.getFecha()).size() > 0) {
+//            return new ResponseEntity<>(Error.CLIENT_RESERVE_SAME_SERVICE.getMessage(), Error.CLIENT_RESERVE_SAME_SERVICE.getStatus());
+//        }
+//
+//        ReserveEntity reserva = new ReserveEntity(model);
+//        return new ResponseEntity<>(this.repository.save(reserva), HttpStatus.OK);
+//    }
 }

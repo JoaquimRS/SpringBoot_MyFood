@@ -5,7 +5,10 @@ import java.util.List;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -16,7 +19,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @Builder
-public class ReservaDto {
+public class ReserveDto {
     private String id_reserva;
 
     @NotBlank
@@ -28,7 +31,7 @@ public class ReservaDto {
     @NotBlank
     private String tipo;
 
-    @Min(2)
+    @NotNull
     private Integer n_comensales;
 
     private String estado;
@@ -46,6 +49,14 @@ public class ReservaDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class MultipleReserva {
-        private List<ReservaDto> reservas;
+        private List<ReserveDto> reservas;
+    }
+
+    @Override
+    public String toString() {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+
+        return gson.toJson(this);
     }
 }

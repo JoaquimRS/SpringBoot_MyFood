@@ -21,8 +21,11 @@ public class CategoryDto {
     @NotNull
     private String icono;
 
+    private List<String> productos;
+
     @Getter
     @Setter
+    @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class SingleCategory<T> {
@@ -31,6 +34,7 @@ public class CategoryDto {
 
     @Getter
     @Setter
+    @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class MultipleCategories {

@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,5 +44,11 @@ public class ProductServiceImpl implements ProductService {
                 .stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    @Override
+    public ProductDto getProductById(String id) {
+        return convertEntityToDto(this.productRepository.findById(id).get());
     }
 }

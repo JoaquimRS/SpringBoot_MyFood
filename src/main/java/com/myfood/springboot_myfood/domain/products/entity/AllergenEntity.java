@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Enabled
+@Entity
 @Table(name = "alergenos")
 @NamedEntityGraph(name = "fetch-allergens")
 public class AllergenEntity {

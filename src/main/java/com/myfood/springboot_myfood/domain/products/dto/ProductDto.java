@@ -39,6 +39,7 @@ public class ProductDto {
     @Getter
     @Setter
     @AllArgsConstructor
+    @Builder
     @NoArgsConstructor
     public static class SingleProducto<T> {
         private T producto;

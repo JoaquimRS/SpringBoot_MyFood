@@ -19,8 +19,11 @@ public class AllergenDto {
     @NotNull
     private String imagen;
 
+    private List<String> productos;
+
     @Getter
     @Setter
+    @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class SingleAllergen<T> {
@@ -29,6 +32,7 @@ public class AllergenDto {
 
     @Getter
     @Setter
+    @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class MultipleAllergens {
