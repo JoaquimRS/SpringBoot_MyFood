@@ -86,4 +86,26 @@ public class ProductEntity {
             cat.getProducts().remove(this);
         }
     }
+
+    public List<AllergenEntity> getAllergens() {
+        return this.alergenos;
+    }
+
+    public void addCategory(AllergenEntity allergen) {
+        this.alergenos.add(allergen);
+        allergen.getProductos().add(this);
+    }
+
+    public void removeAllergen(String allergenId) {
+        AllergenEntity allergen = this.alergenos
+                .stream()
+                .filter(a -> a.getId_alergeno() == allergenId)
+                .findFirst()
+                .orElse(null);
+
+        if (allergen != null) {
+            this.alergenos.remove(allergen);
+            allergen.getProductos().remove(this);
+        }
+    }
 }
