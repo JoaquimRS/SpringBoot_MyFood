@@ -1,8 +1,9 @@
 package com.myfood.springboot_myfood.domain.reserva.controller;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +20,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.myfood.springboot_myfood.domain.reserva.dto.ReserveDto;
-import com.myfood.springboot_myfood.domain.reserva.entity.ReserveEntity;
-import com.myfood.springboot_myfood.errors.Error;
-import com.myfood.springboot_myfood.plugins.IdGenerator;
-
-import javax.imageio.ImageIO;
 
 @RestController
 @RequestMapping("/reservas")
@@ -33,6 +29,15 @@ public class ReservesController {
     private ReserveService reserveService;
     GsonBuilder builder = new GsonBuilder();
     Gson gson = builder.create();
+
+
+    @GetMapping
+    ReserveDto.MultipleReserva getReserves() {
+        return ReserveDto.MultipleReserva
+                .builder()
+                .reservas(this.reserveService.getReserves())
+                .build();
+    }
 
     @GetMapping("/getBannedDays")
     List<Object> getHolidays(@RequestParam Integer comensales, @RequestParam String servicio) {
@@ -65,15 +70,8 @@ public class ReservesController {
         return new ResponseEntity<>(list.toString(), HttpStatus.OK);
     }
 
-//    @PostMapping
-//    public ResponseEntity<?> postReserve(@RequestBody ReserveDto model) {
-//        model.setId_reserva(IdGenerator.generateWithLength(10));
-//
-//        if (this.repository.checkReserve(model.getId_cliente(), model.getTipo(), model.getFecha()).size() > 0) {
-//            return new ResponseEntity<>(Error.CLIENT_RESERVE_SAME_SERVICE.getMessage(), Error.CLIENT_RESERVE_SAME_SERVICE.getStatus());
-//        }
-//
-//        ReserveEntity reserva = new ReserveEntity(model);
-//        return new ResponseEntity<>(this.repository.save(reserva), HttpStatus.OK);
-//    }
+    @PostMapping()
+    public ReserveDto.SingleReserva craeteReserve(@RequestBody ReserveDto body) {
+        return ReserveDto.SingleReserva.builder().reserva(body).build();
+    }
 }

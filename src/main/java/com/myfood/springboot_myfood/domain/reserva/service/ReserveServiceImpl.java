@@ -6,6 +6,7 @@ import com.myfood.springboot_myfood.domain.reserva.repository.ReserveRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +27,9 @@ public class ReserveServiceImpl implements ReserveService {
                 .build();
     }
 
+
     @Override
-    public List<ReserveDto> getUserReserves() {
+    public List<ReserveDto> getReserves() {
         return this.reserveRepository
                 .findAll()
                 .stream()

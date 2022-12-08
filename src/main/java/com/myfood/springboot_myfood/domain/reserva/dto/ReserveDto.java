@@ -1,9 +1,8 @@
 package com.myfood.springboot_myfood.domain.reserva.dto;
 
-import java.sql.Date;
 import java.util.List;
+import java.time.LocalDate;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -26,7 +25,7 @@ public class ReserveDto {
     private String id_cliente;
 
     @NotBlank
-    private Date fecha;
+    private LocalDate fecha;
 
     @NotBlank
     private String tipo;

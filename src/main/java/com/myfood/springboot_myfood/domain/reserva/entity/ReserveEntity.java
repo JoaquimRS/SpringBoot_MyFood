@@ -1,8 +1,5 @@
 package com.myfood.springboot_myfood.domain.reserva.entity;
 
-import java.sql.Date;
-
-
 import com.myfood.springboot_myfood.domain.reserva.dto.ReserveDto;
 
 import javax.persistence.Column;
@@ -11,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.*;
+
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,7 +24,7 @@ public class ReserveEntity {
     @Column(name = "id_cliente")
     private String id_cliente;
     @Column(name = "fecha")
-    private Date fecha;
+    private LocalDate fecha;
     @Column(name = "tipo")
     private String tipo;
     @Column(name = "n_comensales")
