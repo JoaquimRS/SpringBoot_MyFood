@@ -80,7 +80,7 @@ public class ReservesController {
         return new ResponseEntity<>(list.toString(), HttpStatus.OK);
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity createReserve(@RequestBody Object body) {
         ReserveDto dto = new ReserveDto();
         JsonObject json = gson.fromJson(gson.toJson(body), JsonObject.class);
@@ -96,6 +96,5 @@ public class ReservesController {
         dto.setEstado("PENDIENTE");
 
         return this.reserveService.saveReserve(dto);
-//        return new ResponseEntity(body, HttpStatus.OK);
     }
 }
