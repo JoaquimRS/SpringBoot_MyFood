@@ -1,6 +1,6 @@
 package com.myfood.springboot_myfood.domain.reserva.entity;
 
-import com.myfood.springboot_myfood.domain.reserva.dto.ReserveDto;
+import com.myfood.springboot_myfood.domain.common.utils.BaseUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,8 +16,9 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
+@Builder
 @Table(name = "reservas")
-public class ReserveEntity {
+public class ReserveEntity extends BaseUtils {
     @Id
     private String id_reserva;
 
@@ -32,13 +33,13 @@ public class ReserveEntity {
     @Column(name = "estado")
     private String estado;
 
-    @Builder
-    public ReserveEntity(ReserveDto model) {
-        this.estado = model.getEstado();
-        this.fecha = model.getFecha();
-        this.id_cliente = model.getId_cliente();
-        this.id_reserva = model.getId_reserva();
-        this.n_comensales = model.getN_comensales();
-        this.tipo = model.getTipo();
-    }
+//    @Builder
+//    public ReserveEntity(ReserveDto model) {
+//        this.estado = model.getEstado();
+//        this.fecha = model.getFecha();
+//        this.id_cliente = model.getId_cliente();
+//        this.id_reserva = model.getId_reserva();
+//        this.n_comensales = model.getN_comensales();
+//        this.tipo = model.getTipo();
+//    }
 }

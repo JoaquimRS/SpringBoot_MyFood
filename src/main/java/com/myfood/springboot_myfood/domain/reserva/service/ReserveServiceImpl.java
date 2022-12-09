@@ -3,10 +3,12 @@ package com.myfood.springboot_myfood.domain.reserva.service;
 import com.myfood.springboot_myfood.domain.reserva.dto.ReserveDto;
 import com.myfood.springboot_myfood.domain.reserva.entity.ReserveEntity;
 import com.myfood.springboot_myfood.domain.reserva.repository.ReserveRepository;
+import com.myfood.springboot_myfood.plugins.IdGenerator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,16 @@ public class ReserveServiceImpl implements ReserveService {
                 .build();
     }
 
+    private ReserveEntity convertDtoToEntity(ReserveDto dto) {
+        return ReserveEntity.builder()
+                .tipo(dto.getTipo())
+                .id_reserva(dto.getId_reserva())
+                .estado(dto.getEstado())
+                .fecha(dto.getFecha())
+                .id_cliente(dto.getId_cliente())
+                .n_comensales(dto.getN_comensales())
+                .build();
+    }
 
     @Override
     public List<ReserveDto> getReserves() {
@@ -50,15 +62,16 @@ public class ReserveServiceImpl implements ReserveService {
     public ReserveDto getReserve(String id_reserva) {
         return convertEntityToDto(this.reserveRepository.findById(id_reserva).get());
     }
-    
-    @Override
-    public ReserveDto saveReserve(ReserveEntity entity) {
-        ReserveEntity saved = this.reserveRepository.saveReserve(entity);
 
-        if (saved != null) {
-            return convertEntityToDto(saved);
+    @Override
+    // TODO: Checkear que la reserva que se quiere crear no exista
+    public ResponseEntity saveReserve(ReserveDto dto) {
+        dto.setId_reserva(IdGenerator.generateWithLength(10));
+
+        if (this.reserveRepository.save(convertDtoToEntity(dto)) != null) {
+            return new ResponseEntity<>(dto.getId_reserva(), HttpStatus.OK);
         }
 
-        return null;
+        return new ResponseEntity<>("{'msg': 'Hubo un error al crear la reserva'}", HttpStatus.BAD_REQUEST);
     }
 }

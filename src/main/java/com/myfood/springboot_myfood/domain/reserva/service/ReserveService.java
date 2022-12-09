@@ -1,7 +1,7 @@
 package com.myfood.springboot_myfood.domain.reserva.service;
 
 import com.myfood.springboot_myfood.domain.reserva.dto.ReserveDto;
-import com.myfood.springboot_myfood.domain.reserva.entity.ReserveEntity;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -11,5 +11,6 @@ public interface ReserveService {
 
     ReserveDto getReserve(String id_reserva);
 
-    ReserveDto saveReserve(ReserveEntity entity);
+    ResponseEntity saveReserve(ReserveDto entity);
+
 }

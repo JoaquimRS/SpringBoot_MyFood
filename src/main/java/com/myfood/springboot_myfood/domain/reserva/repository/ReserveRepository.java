@@ -21,9 +21,6 @@ public interface ReserveRepository extends JpaRepository<ReserveEntity, String> 
     @Query(value = "SELECT * FROM reservas r WHERE id_reserva = :reserva", nativeQuery = true)
     ReserveEntity getReserva(@Param("reserva") String reserva);
 
-    @Query(value = "INSERT INTO reservas VALUES (:obj_reserva)", nativeQuery = true)
-    ReserveEntity saveReserve(@Param("obj_reserva") ReserveEntity obj_reserva);
-
     @Query(value = "SELECT id_cliente, fecha, tipo FROM reservas WHERE tipo = :servicio AND id_cliente = :id_cli AND fecha = :f_reserva", nativeQuery = true)
     <T> List<T> checkReserve(@Param("id_cli") String id_cli, @Param("servicio") String servicio, @Param("f_reserva") Date f_resreva);
     

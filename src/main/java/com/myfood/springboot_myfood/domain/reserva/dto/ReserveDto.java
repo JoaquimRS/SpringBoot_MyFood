@@ -1,13 +1,15 @@
 package com.myfood.springboot_myfood.domain.reserva.dto;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.time.LocalDate;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.myfood.springboot_myfood.domain.common.utils.BaseUtils;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -17,8 +19,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class ReserveDto {
+public class ReserveDto extends BaseUtils {
     private String id_reserva;
 
     @NotBlank
@@ -31,6 +34,7 @@ public class ReserveDto {
     private String tipo;
 
     @NotNull
+    @Min(2)
     private Integer n_comensales;
 
     private String estado;
@@ -49,13 +53,5 @@ public class ReserveDto {
     @AllArgsConstructor
     public static class MultipleReserva {
         private List<ReserveDto> reservas;
-    }
-
-    @Override
-    public String toString() {
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-
-        return gson.toJson(this);
     }
 }
