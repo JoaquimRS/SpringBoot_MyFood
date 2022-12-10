@@ -52,7 +52,7 @@ public class ReservesController {
     @GetMapping(value = "/image", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getImage() throws IOException {
         InputStream in = getClass()
-                .getResourceAsStream("../../../assets/test.jpg");
+                .getResourceAsStream("/com/myfood/springboot_myfood/assets/test.jpg");
         return IOUtils.toByteArray(in);
     }
 
