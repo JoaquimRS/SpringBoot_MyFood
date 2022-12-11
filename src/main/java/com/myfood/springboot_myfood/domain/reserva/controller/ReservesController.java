@@ -1,9 +1,6 @@
 package com.myfood.springboot_myfood.domain.reserva.controller;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -11,11 +8,12 @@ import java.util.List;
 
 import com.myfood.springboot_myfood.domain.reserva.service.ReserveService;
 import com.myfood.springboot_myfood.plugins.IdGenerator;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 
 import com.google.gson.Gson;
@@ -24,7 +22,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.myfood.springboot_myfood.domain.reserva.dto.ReserveDto;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/reservas")
@@ -50,10 +48,11 @@ public class ReservesController {
     }
 
     @GetMapping(value = "/image", produces = MediaType.IMAGE_JPEG_VALUE)
-    public @ResponseBody byte[] getImage() throws IOException {
-        InputStream in = getClass()
-                .getResourceAsStream("/com/myfood/springboot_myfood/assets/test.jpg");
-        return IOUtils.toByteArray(in);
+    public @ResponseBody void getImage(HttpServletResponse response) throws IOException {
+        var image = new ClassPathResource("images/test.jpg");
+
+        response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+        StreamUtils.copy(image.getInputStream(), response.getOutputStream());
     }
 
     @GetMapping(value = "/{id_reserva}")
