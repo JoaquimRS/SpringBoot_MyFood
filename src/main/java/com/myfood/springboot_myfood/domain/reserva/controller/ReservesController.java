@@ -13,6 +13,7 @@ import com.myfood.springboot_myfood.domain.reserva.service.ReserveService;
 import com.myfood.springboot_myfood.plugins.IdGenerator;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -51,8 +52,11 @@ public class ReservesController {
 
     @GetMapping(value = "/image", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getImage() throws IOException {
+        ClassPathResource image = new ClassPathResource("images/test.jpg");
+
+        // FIXME: Not working, returns that in is empty but I'm passing absolute path
         InputStream in = getClass()
-                .getResourceAsStream("/com/myfood/springboot_myfood/assets/test.jpg");
+                .getResourceAsStream(image.getFile().getAbsoluteFile().getPath());
         return IOUtils.toByteArray(in);
     }
 
