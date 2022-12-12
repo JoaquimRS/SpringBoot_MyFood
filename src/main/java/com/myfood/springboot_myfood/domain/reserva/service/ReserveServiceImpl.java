@@ -66,8 +66,6 @@ public class ReserveServiceImpl implements ReserveService {
     @Override
     // TODO: Checkear que la reserva que se quiere crear no exista
     public ResponseEntity saveReserve(ReserveDto dto) {
-        dto.setId_reserva(IdGenerator.generateWithLength(10));
-
         if (this.reserveRepository.save(convertDtoToEntity(dto)) != null) {
             return new ResponseEntity<>(dto.getId_reserva(), HttpStatus.OK);
         }
