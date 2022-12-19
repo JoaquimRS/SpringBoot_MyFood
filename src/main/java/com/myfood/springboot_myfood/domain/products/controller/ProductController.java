@@ -25,7 +25,7 @@ public class ProductController {
     @Autowired
     private CategoryService cService;
 
-    @GetMapping("/test")
+    @GetMapping("/")
     public ProductDto.MultipleProductos getProducts() {
         return ProductDto.MultipleProductos
                 .builder()
@@ -33,7 +33,7 @@ public class ProductController {
                 .build();
     }
 
-    @GetMapping("/test/{id_producto}")
+    @GetMapping("/{id_producto}")
     public ProductDto.SingleProducto getProductoById(@PathVariable String id_producto) {
         return ProductDto.SingleProducto
                 .builder()
@@ -41,7 +41,7 @@ public class ProductController {
                 .build();
     }
 
-    @GetMapping("/test_alergenos")
+    @GetMapping("/alergenos")
     public AllergenDto.MultipleAllergens getAllergens() {
         return AllergenDto.MultipleAllergens
                 .builder()
@@ -49,7 +49,7 @@ public class ProductController {
                 .build();
     }
 
-    @GetMapping("/test_alergenos/{id_alergeno}")
+    @GetMapping("/alergenos/{id_alergeno}")
     public AllergenDto.SingleAllergen getAlergeno(@PathVariable String id_alergeno) {
         return AllergenDto.SingleAllergen
                 .builder()
@@ -57,7 +57,7 @@ public class ProductController {
                 .build();
     }
 
-    @GetMapping("/test/categories")
+    @GetMapping("/categories")
     public CategoryDto.MultipleCategories getCategories() {
         return CategoryDto.MultipleCategories
                 .builder()
@@ -65,7 +65,7 @@ public class ProductController {
                 .build();
     }
 
-    @GetMapping("/test/categories/{id_category}")
+    @GetMapping("/categories/{id_category}")
     public CategoryDto.SingleCategory getCategory(@PathVariable String id_category) {
         return CategoryDto.SingleCategory.
                 builder()
