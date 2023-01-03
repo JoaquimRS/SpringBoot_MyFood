@@ -6,7 +6,6 @@ import com.myfood.springboot_myfood.domain.products.dto.ProductDto;
 import com.myfood.springboot_myfood.domain.products.service.AllergenService;
 import com.myfood.springboot_myfood.domain.products.service.CategoryService;
 import com.myfood.springboot_myfood.domain.products.service.ProductService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
