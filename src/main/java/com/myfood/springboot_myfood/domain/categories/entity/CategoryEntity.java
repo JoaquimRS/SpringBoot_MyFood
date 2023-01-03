@@ -1,11 +1,13 @@
-package com.myfood.springboot_myfood.domain.products.entity;
+package com.myfood.springboot_myfood.domain.categories.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
-
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.*;
+
+import com.myfood.springboot_myfood.domain.products.entity.ProductEntity;
+
+import lombok.*;
 
 @Getter
 @Setter
@@ -25,12 +27,12 @@ public class CategoryEntity {
 
     @Column(name = "icono")
     private String icono;
-
+    
     @ManyToMany(
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            mappedBy = "categorias"
-    )
+        fetch = FetchType.LAZY,
+        cascade = CascadeType.ALL,
+        mappedBy = "categorias"
+)
     private List<ProductEntity> productos = new ArrayList<>();
 
     @Builder
@@ -39,7 +41,6 @@ public class CategoryEntity {
         this.slug = slug;
         this.nombre = nombre;
         this.icono = icono;
-        this.productos = new ArrayList<>();
     }
 
     public List<ProductEntity> getProducts() {

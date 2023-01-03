@@ -1,14 +1,17 @@
-package com.myfood.springboot_myfood.domain.products.service;
+package com.myfood.springboot_myfood.domain.categories.service;
 
-import com.myfood.springboot_myfood.domain.products.dto.CategoryDto;
-import com.myfood.springboot_myfood.domain.products.entity.CategoryEntity;
-import com.myfood.springboot_myfood.domain.products.entity.ProductEntity;
-import com.myfood.springboot_myfood.domain.products.repository.CategoryRepository;
-import lombok.AllArgsConstructor;
+import java.util.List;
+
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import com.myfood.springboot_myfood.domain.categories.dto.CategoryDto;
+import com.myfood.springboot_myfood.domain.categories.entity.CategoryEntity;
+import com.myfood.springboot_myfood.domain.categories.respository.CategoryRepository;
+import com.myfood.springboot_myfood.domain.products.entity.ProductEntity;
+
+import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
@@ -32,15 +35,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryDto> getCategories() {
         return this.categoryRepository
-                .findAll()
+                .findAll(Sort.by(Sort.Direction.ASC, "nombre"))
                 .stream()
                 .map(this::convertoToDto)
                 .toList();
-    }
-
-    @Transactional
-    @Override
-    public CategoryDto getCategoryById(String id) {
-        return convertoToDto(this.categoryRepository.findById(id).get());
     }
 }

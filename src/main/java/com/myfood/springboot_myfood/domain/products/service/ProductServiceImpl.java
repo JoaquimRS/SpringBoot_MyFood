@@ -1,12 +1,14 @@
 package com.myfood.springboot_myfood.domain.products.service;
 
 import com.myfood.springboot_myfood.domain.products.entity.AllergenEntity;
-import com.myfood.springboot_myfood.domain.products.entity.CategoryEntity;
+
 import org.springframework.stereotype.Service;
 
+import com.myfood.springboot_myfood.domain.categories.entity.CategoryEntity;
 import com.myfood.springboot_myfood.domain.products.dto.ProductDto;
 import com.myfood.springboot_myfood.domain.products.entity.ProductEntity;
 import com.myfood.springboot_myfood.domain.products.repository.ProductRepository;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
@@ -41,6 +43,21 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDto> getProductos() {
         return this.productRepository.getProducts()
+                .stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    @Override
+    public List<ProductDto> getFilteredProducts(List<String> categorias, String orden, List<String> rango) {
+        if (categorias.isEmpty()) {
+            return this.productRepository.getFilteredProducts(orden, rango.get(0), rango.get(1))
+                    .stream()
+                    .map(this::convertEntityToDto)
+                    .collect(Collectors.toList());
+        }
+        return this.productRepository.getFilteredProductsCategories(categorias, orden, rango.get(0), rango.get(1))
                 .stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());
