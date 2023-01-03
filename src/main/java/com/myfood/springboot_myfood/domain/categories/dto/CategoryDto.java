@@ -1,9 +1,8 @@
-package com.myfood.springboot_myfood.domain.products.dto;
+package com.myfood.springboot_myfood.domain.categories.dto;
 
-import lombok.*;
-
-import javax.validation.constraints.NotNull;
 import java.util.List;
+import javax.validation.constraints.NotNull;
+import lombok.*;
 
 @Getter
 @Setter
@@ -12,7 +11,7 @@ import java.util.List;
 public class CategoryDto {
     @NotNull
     private String id_categoria;
-
+    
     private String slug;
 
     @NotNull
@@ -40,5 +39,6 @@ public class CategoryDto {
     public static class MultipleCategories {
         private List<CategoryDto> categories;
     }
+    
 
 }
