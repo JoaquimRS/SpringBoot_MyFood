@@ -17,12 +17,12 @@ public class ClientDetailsServiceImpl implements UserDetailsService {
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return clientRepository.findByEmail(email)
+        return clientRepository.findById(email)
                 .map(clientEntity ->
-                        AuthClientDetails.builder()
-                                .id_cliente(clientEntity.getId_cliente())
-                                .email(clientEntity.getEmail())
-                                .build())
+                     AuthClientDetails.builder()
+                            .id_cliente(clientEntity.getId_cliente())
+                            .email(clientEntity.getEmail())
+                            .build())
                 .orElse(null);
     }
 }

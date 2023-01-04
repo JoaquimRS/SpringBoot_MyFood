@@ -8,7 +8,6 @@ import java.util.Date;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 public class JwtUtils {
@@ -29,11 +28,11 @@ public class JwtUtils {
         return Jwts.builder()
                 .setSubject(sub)
                 .setIssuedAt(new Date(exp.toEpochMilli()))
-                .setExpiration(
-                        new Date(exp.toEpochMilli()
+                .setExpiration(new Date(
+                        exp.toEpochMilli()
                                 + validSeconds
                                 * 1000))
-                .signWith(SignatureAlgorithm.valueOf("HS256"), key)
+                .signWith(key)
                 .compact();
     }
 
@@ -42,7 +41,6 @@ public class JwtUtils {
             Claims claims = Jwts.parser().setSigningKey(key).parseClaimsJws(jwt).getBody();
             Instant now = Instant.now();
             Date exp = claims.getExpiration();
-
             return exp.after(Date.from(now));
         } catch (JwtException e) {
             return false;

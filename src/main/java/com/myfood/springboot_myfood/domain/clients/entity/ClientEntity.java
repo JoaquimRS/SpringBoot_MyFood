@@ -1,9 +1,7 @@
 package com.myfood.springboot_myfood.domain.clients.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.myfood.springboot_myfood.domain.common.utils.BaseUtils;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -18,7 +16,7 @@ import javax.persistence.*;
                 @UniqueConstraint(columnNames = "email")
     })
 @NamedEntityGraph(name = "fetch-clients")
-public class ClientEntity {
+public class ClientEntity extends BaseUtils {
     @Id
     private String id_cliente;
 
@@ -34,12 +32,16 @@ public class ClientEntity {
     @Column(name = "contraseña")
     private String contraseña;
 
+    @Column(name = "avatar")
+    private String avatar;
+
     @Builder
-    public ClientEntity(String id_cliente, String nombre, String email, String telefono, String contraseña) {
+    public ClientEntity(String id_cliente, String nombre, String email, String telefono, String contraseña, String avatar) {
         this.id_cliente = id_cliente;
         this.nombre = nombre;
         this.email = email;
         this.telefono = telefono;
         this.contraseña = contraseña;
+        this.avatar = avatar;
     }
 }

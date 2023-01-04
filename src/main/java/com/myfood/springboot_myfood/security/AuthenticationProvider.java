@@ -14,8 +14,8 @@ import java.util.Optional;
 public class AuthenticationProvider {
     private final UserDetailsService userDetailsService;
 
-    public Authentication getAuthentication(String nombre) {
-        return Optional.ofNullable(nombre)
+    public Authentication getAuthentication(String id) {
+        return Optional.ofNullable(id)
                 .map(userDetailsService::loadUserByUsername)
                 .map(clientDetails ->
                         new UsernamePasswordAuthenticationToken(

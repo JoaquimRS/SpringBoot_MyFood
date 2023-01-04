@@ -1,10 +1,13 @@
 package com.myfood.springboot_myfood.domain.clients.service;
 
+import ch.qos.logback.core.net.server.Client;
 import com.myfood.springboot_myfood.domain.clients.dto.ClientDto;
 import com.myfood.springboot_myfood.domain.clients.entity.ClientEntity;
 import com.myfood.springboot_myfood.domain.clients.repository.ClientRepository;
 import com.myfood.springboot_myfood.domain.payload.request.LoginRequest;
 import com.myfood.springboot_myfood.domain.payload.request.SignUpRequest;
+import com.myfood.springboot_myfood.domain.payload.request.UpdateRequest;
+import com.myfood.springboot_myfood.domain.payload.response.JWTResponse;
 import com.myfood.springboot_myfood.exception.AppException;
 import com.myfood.springboot_myfood.exception.Error;
 import com.myfood.springboot_myfood.plugins.IdGenerator;
@@ -24,15 +27,27 @@ public class ClientServiceImpl implements ClientService {
 
     public ClientDto convertEntityToDto(ClientEntity cEntity) {
         return ClientDto.builder()
+                .id_cliente(cEntity.getId_cliente())
                 .nombre(cEntity.getNombre())
                 .email(cEntity.getEmail())
                 .telefono(cEntity.getTelefono())
-                .token(jwtUtils.encode(cEntity.getEmail()))
+                .avatar(cEntity.getAvatar())
+                .contraseña(cEntity.getContraseña())
+                .build();
+    }
+
+    public JWTResponse responseToken(ClientEntity entity) {
+        return JWTResponse.builder()
+                .token(jwtUtils.encode(entity.getId_cliente())) //! Check if email or ID
+                .type("Bearer")
+                .email(entity.getEmail())
+                .nombre(entity.getNombre())
+                .avatar(entity.getAvatar())
                 .build();
     }
 
     @Override
-    public ClientDto registration(final SignUpRequest data) {
+    public JWTResponse registration(final SignUpRequest data) {
         clientRepository.findByNombreOrEmail(data.getNombre(), data.getEmail())
                 .stream()
                 .findAny()
@@ -41,20 +56,21 @@ public class ClientServiceImpl implements ClientService {
                 });
 
         ClientEntity clientEntity = ClientEntity.builder()
+                .id_cliente(IdGenerator.generateWithLength(10))
                 .nombre(data.getNombre())
                 .email(data.getEmail())
                 .contraseña(passwordEncoder.encode(data.getContraseña()))
-                .id_cliente(IdGenerator.generateWithLength(10))
                 .telefono(data.getTelefono())
+                .avatar("https://api.multiavatar.com/" + data.getNombre() + ".png")
                 .build();
 
         clientRepository.save(clientEntity);
-        return convertEntityToDto(clientEntity);
+        return responseToken(clientEntity);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public ClientDto login(LoginRequest credentials) {
+    public JWTResponse login(LoginRequest credentials) {
         ClientEntity cEntity = clientRepository.findByEmail(credentials.getEmail())
                 .filter(client ->
                         passwordEncoder.matches(
@@ -63,18 +79,39 @@ public class ClientServiceImpl implements ClientService {
                 .orElseThrow(() ->
                         new AppException(Error.LOGIN_INFO_INVALID));
 
-        return convertEntityToDto(cEntity);
+        return responseToken(cEntity);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public ClientDto currentUser(AuthClientDetails authClientDetails) {
+    public ClientDto currentUser(AuthClientDetails client) {
         ClientEntity clientEntity = clientRepository.
-                findById(authClientDetails.getId_cliente())
+                findById(client.getId_cliente())
                 .orElseThrow(() -> new AppException(Error.USER_NOT_FOUND));
 
         return convertEntityToDto(clientEntity);
     }
 
+    @Transactional
+    @Override
+    public ClientDto update(UpdateRequest newData, final AuthClientDetails clientDetails) {
+        ClientEntity cEntity = clientRepository
+                .findById(clientDetails.getId_cliente())
+                .orElseThrow(() -> new AppException(Error.USER_NOT_FOUND));
 
+        if (newData.getNombre() != null) {
+            cEntity.setNombre(newData.getNombre());
+        }
+
+        if (newData.getTelefono() != null) {
+            cEntity.setTelefono(newData.getTelefono());
+        }
+
+        if (newData.getContraseña() != null) {
+            cEntity.setContraseña(passwordEncoder.encode(newData.getContraseña()));
+        }
+
+        clientRepository.save(cEntity);
+        return convertEntityToDto(cEntity);
+    }
 }

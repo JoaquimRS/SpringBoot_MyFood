@@ -14,7 +14,7 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 public class JWTAuthFilter extends GenericFilter {
-    public static final String TOKEN_PREFIX = "Bearer ";
+    public static final String TOKEN_PREFIX = "Bearer";
     private final JwtUtils jwtUtils;
     private final AuthenticationProvider authenticationProvider;
 
@@ -27,6 +27,10 @@ public class JWTAuthFilter extends GenericFilter {
                 .map(jwtUtils::getSub)
                 .map(authenticationProvider::getAuthentication)
                 .ifPresent(SecurityContextHolder.getContext()::setAuthentication);
+
+//        if (((HttpServletRequest) request).getHeader(HttpHeaders.AUTHORIZATION) == null) {
+//            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_UNAUTHORIZED, "The Token is Not valid");
+//        }
 
         chain.doFilter(request, response);
     }

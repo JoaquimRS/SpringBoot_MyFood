@@ -1,5 +1,7 @@
 package com.myfood.springboot_myfood.domain.clients.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.myfood.springboot_myfood.domain.common.utils.BaseUtils;
 import lombok.*;
 
 import javax.validation.constraints.Email;
@@ -9,8 +11,10 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @AllArgsConstructor
+@Getter
+@Setter
 @Builder
-public class ClientDto {
+public class ClientDto extends BaseUtils {
     @NotNull
     @NotBlank
     private String id_cliente;
@@ -29,10 +33,14 @@ public class ClientDto {
 
     @NotNull
     @NotBlank
+//    @JsonIgnore
     @Size(min = 8, max = 40)
     private String contraseña;
 
-    private String token;
+    @NotNull
+    @NotBlank
+    private String avatar;
+
     @Getter
     @Setter
     @AllArgsConstructor

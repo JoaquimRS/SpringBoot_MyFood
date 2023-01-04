@@ -34,7 +34,7 @@ public class WebSecurityConfiguration {
                 .formLogin().disable()
                 .authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/productos/**").authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 .and()
