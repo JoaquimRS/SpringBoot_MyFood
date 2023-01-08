@@ -16,9 +16,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
+@CrossOrigin(origins = "*")
 public class WebSecurityConfiguration {
     private final JWTAuthFilter jwtAuthFilter;
 
@@ -34,7 +36,9 @@ public class WebSecurityConfiguration {
                 .formLogin().disable()
                 .authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
-                .antMatchers("/productos/**").authenticated()
+                .antMatchers("/productos/**").permitAll()
+                .antMatchers("/pedidos/**").permitAll()
+                .antMatchers("/reservas/**").permitAll()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 .and()

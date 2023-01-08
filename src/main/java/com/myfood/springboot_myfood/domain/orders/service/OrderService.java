@@ -11,6 +11,6 @@ import java.util.List;
 import java.util.Set;
 
 public interface OrderService {
-    List<OrderDto> getUserOrders();
+    List<OrderDto> getUserOrders(String client);
     ResponseEntity addOrder(OrderDto order,Set<OrderProductEntity> orderProducts);
 }

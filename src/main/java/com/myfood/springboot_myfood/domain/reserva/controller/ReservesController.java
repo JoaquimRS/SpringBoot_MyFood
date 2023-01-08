@@ -8,11 +8,14 @@ import java.util.List;
 
 import com.myfood.springboot_myfood.domain.reserva.service.ReserveService;
 import com.myfood.springboot_myfood.plugins.IdGenerator;
+import com.myfood.springboot_myfood.security.AuthClientDetails;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +23,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.myfood.springboot_myfood.domain.clients.service.ClientService;
 import com.myfood.springboot_myfood.domain.reserva.dto.ReserveDto;
 
 import javax.servlet.http.HttpServletResponse;
@@ -33,6 +37,8 @@ public class ReservesController {
     GsonBuilder builder = new GsonBuilder();
     Gson gson = builder.create();
 
+    @Autowired
+    private ClientService cService;
 
     @GetMapping
     ReserveDto.MultipleReserva getReserves() {
@@ -80,7 +86,7 @@ public class ReservesController {
     }
 
     @PostMapping
-    public ResponseEntity createReserve(@RequestBody Object body) {
+    public ResponseEntity createReserve(@AuthenticationPrincipal AuthClientDetails authClientDetails, @RequestBody Object body) {
         ReserveDto dto = new ReserveDto();
         JsonObject json = gson.fromJson(gson.toJson(body), JsonObject.class);
 
@@ -88,7 +94,7 @@ public class ReservesController {
         LocalDate dt = LocalDate.parse(json.get("fecha").getAsString(), formatter);
 
         dto.setId_reserva(IdGenerator.generateWithLength(10));
-        dto.setId_cliente("asdf");
+        dto.setId_cliente(cService.currentUser(authClientDetails).getId_cliente());
         dto.setFecha(dt);
         dto.setTipo(json.get("servicio").getAsString());
         dto.setN_comensales(json.get("n_comensales").getAsInt());

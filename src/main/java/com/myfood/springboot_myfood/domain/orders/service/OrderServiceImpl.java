@@ -66,9 +66,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     @Override
-    public List<OrderDto> getUserOrders() {
+    public List<OrderDto> getUserOrders(String client) {
         return this.orderRepository
-                .getOrders("asdf")
+                .getOrders(client)
                 .stream()
                 .map(this::converToDto)
                 .toList();
