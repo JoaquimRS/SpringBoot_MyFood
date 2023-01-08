@@ -6,7 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Set;
+
 
 @Getter
 @Setter
@@ -22,13 +26,21 @@ public class OrderEntity {
     private String id_cliente;
 
     @Column(name = "fecha")
-    private Date fecha;
+    private LocalDate fecha;
 
     @Column(name = "estado")
     private String estado;
 
+
+    @OneToMany(
+        mappedBy = "pedidos",
+        fetch = FetchType.LAZY,
+        cascade = CascadeType.ALL
+    )
+    private Set<OrderProductEntity> productos_pedidos;
+
     @Builder
-    public OrderEntity(String id_pedido, String id_cliente, Date fecha, String estado) {
+    public OrderEntity(String id_pedido, String id_cliente, LocalDate fecha, String estado) {
         this.id_pedido = id_pedido;
         this.id_cliente = id_cliente;
         this.fecha = fecha;

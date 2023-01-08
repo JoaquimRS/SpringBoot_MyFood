@@ -31,6 +31,8 @@ public class ProductDto {
 
     private String slug;
 
+    private Integer cantidad;
+
     private List<String> categorias;
 
     private List<String> alergenos;

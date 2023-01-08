@@ -5,6 +5,7 @@ import com.myfood.springboot_myfood.domain.products.entity.AllergenEntity;
 import org.springframework.stereotype.Service;
 
 import com.myfood.springboot_myfood.domain.categories.entity.CategoryEntity;
+import com.myfood.springboot_myfood.domain.orders.entity.OrderEntity;
 import com.myfood.springboot_myfood.domain.products.dto.ProductDto;
 import com.myfood.springboot_myfood.domain.products.entity.ProductEntity;
 import com.myfood.springboot_myfood.domain.products.repository.ProductRepository;

@@ -3,10 +3,13 @@ package com.myfood.springboot_myfood.domain.products.entity;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
 import com.myfood.springboot_myfood.domain.categories.entity.CategoryEntity;
+import com.myfood.springboot_myfood.domain.orders.entity.OrderEntity;
+import com.myfood.springboot_myfood.domain.orders.entity.OrderProductEntity;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -55,6 +58,13 @@ public class ProductEntity {
             inverseJoinColumns = @JoinColumn(name = "id_alergeno")
     )
     private List<AllergenEntity> alergenos = new ArrayList<>();
+
+    @OneToMany(
+        mappedBy = "productos",
+        fetch = FetchType.LAZY,
+        cascade = CascadeType.ALL
+    )
+    private Set<OrderProductEntity> productos_pedidos;
 
     @Builder
     public ProductEntity(String id_product, String imagen, String nombre, BigDecimal precio, String slug) {
