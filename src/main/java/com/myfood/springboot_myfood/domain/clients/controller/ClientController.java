@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(path = "/client")
 @RequiredArgsConstructor
 public class ClientController {
