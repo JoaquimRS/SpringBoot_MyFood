@@ -19,7 +19,7 @@ public class AllergenServiceImpl implements AllergenService{
         return AllergenDto.builder()
                 .id_alergeno(entity.getId_alergeno())
                 .nombre(entity.getNombre())
-                .imagen(entity.getImagen())
+                .icono(entity.geticono())
                 .productos(entity.getProductos()
                         .stream()
                         .map(ProductEntity::getId_producto)

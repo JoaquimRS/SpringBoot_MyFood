@@ -22,7 +22,7 @@ public class ProductDto {
     private String id_producto;
 
     @NotNull
-    private String imagen;
+    private String icono;
 
     @NotNull
     private String nombre;
