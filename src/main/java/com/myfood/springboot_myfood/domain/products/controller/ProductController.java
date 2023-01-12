@@ -1,20 +1,25 @@
 package com.myfood.springboot_myfood.domain.products.controller;
 
 import com.myfood.springboot_myfood.domain.products.dto.AllergenDto;
-import com.myfood.springboot_myfood.domain.products.dto.CategoryDto;
 import com.myfood.springboot_myfood.domain.products.dto.ProductDto;
 import com.myfood.springboot_myfood.domain.products.service.AllergenService;
-import com.myfood.springboot_myfood.domain.products.service.CategoryService;
+
 import com.myfood.springboot_myfood.domain.products.service.ProductService;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/productos")
+@CrossOrigin(origins = "*")
 public class ProductController {
     @Autowired
     private ProductService pService;
@@ -22,14 +27,19 @@ public class ProductController {
     @Autowired
     private AllergenService aService;
 
-    @Autowired
-    private CategoryService cService;
-
-    @GetMapping("/")
+    @GetMapping
     public ProductDto.MultipleProductos getProducts() {
         return ProductDto.MultipleProductos
                 .builder()
                 .productos(pService.getProductos())
+                .build();
+    }
+
+    @GetMapping("/filtro")
+    public ProductDto.MultipleProductos getFilteredProducts(@RequestParam List<String> categorias, @RequestParam String orden, @RequestParam List<String> rango) {
+        return ProductDto.MultipleProductos
+                .builder()
+                .productos(pService.getFilteredProducts(categorias,orden,rango))
                 .build();
     }
 
@@ -54,22 +64,6 @@ public class ProductController {
         return AllergenDto.SingleAllergen
                 .builder()
                 .allergen(aService.getAllergenById(id_alergeno))
-                .build();
-    }
-
-    @GetMapping("/categories")
-    public CategoryDto.MultipleCategories getCategories() {
-        return CategoryDto.MultipleCategories
-                .builder()
-                .categories(cService.getCategories())
-                .build();
-    }
-
-    @GetMapping("/categories/{id_category}")
-    public CategoryDto.SingleCategory getCategory(@PathVariable String id_category) {
-        return CategoryDto.SingleCategory.
-                builder()
-                .category(cService.getCategoryById(id_category))
                 .build();
     }
 

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface ProductService {
     List<ProductDto> getProductos();
+    List<ProductDto> getFilteredProducts(List<String> categorias, String orden, List<String> rango);
 
     ProductDto getProductById(String id);
 }

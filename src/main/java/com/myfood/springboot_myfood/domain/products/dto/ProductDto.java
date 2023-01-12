@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-import com.myfood.springboot_myfood.domain.products.entity.CategoryEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,6 +30,8 @@ public class ProductDto {
     private BigDecimal precio;
 
     private String slug;
+
+    private Integer cantidad;
 
     private List<String> categorias;
 

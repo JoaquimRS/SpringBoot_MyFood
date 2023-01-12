@@ -1,28 +1,34 @@
 package com.myfood.springboot_myfood.domain.orders.dto;
 
-import com.myfood.springboot_myfood.domain.products.dto.ProductDto;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Stream;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class OrderDto {
     @NotNull
     private String id_pedido;
 
     @NotNull
-    private String id_cliente;
+    private String id_cliente; 
 
     @NotNull
-    private Date fecha;
+    private LocalDate fecha;
 
     @NotNull
     private String estado;
+
+    private List<?> productos_pedidos;
 
     @Getter
     @Setter
