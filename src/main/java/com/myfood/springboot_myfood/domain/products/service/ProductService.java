@@ -7,7 +7,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface ProductService {
     List<ProductDto> getProductos();
-    List<ProductDto> getFilteredProducts(List<String> categorias, String orden, List<String> rango);
+    
+    List<ProductDto> getFilteredProducts(List<String> categorias, String orden, List<String> rango, Integer paginacion);
 
-    ProductDto getProductById(String id);
+    List<ProductDto> searchProducts(String producto);
+
+    Integer getFilteredProductsLength(List<String> categorias, List<String> rango);
+
+    ProductDto getProductById(String slug_producto);
 }

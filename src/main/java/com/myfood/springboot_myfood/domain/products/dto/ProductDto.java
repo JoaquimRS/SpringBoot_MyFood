@@ -21,7 +21,7 @@ public class ProductDto {
     private String id_producto;
 
     @NotNull
-    private String icono;
+    private String imagen;
 
     @NotNull
     private String nombre;
@@ -53,6 +53,16 @@ public class ProductDto {
     @AllArgsConstructor
     public static class MultipleProductos {
         private List<ProductDto> productos;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @Builder
+    @AllArgsConstructor
+    public static class MultipleProductosPagination {
+        private List<ProductDto> productos;
+        private Integer pages;
     }
 
 }
