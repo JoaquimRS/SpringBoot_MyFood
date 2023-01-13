@@ -55,4 +55,14 @@ public class ProductDto {
         private List<ProductDto> productos;
     }
 
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @Builder
+    @AllArgsConstructor
+    public static class MultipleProductosPagination {
+        private List<ProductDto> productos;
+        private Integer pages;
+    }
+
 }

@@ -48,17 +48,11 @@ public class ProductServiceImpl implements ProductService {
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());
     }
-
+    
     @Transactional
     @Override
-    public List<ProductDto> getFilteredProducts(List<String> categorias, String orden, List<String> rango) {
-        if (categorias.isEmpty()) {
-            return this.productRepository.getFilteredProducts(orden, rango.get(0), rango.get(1))
-                    .stream()
-                    .map(this::convertEntityToDto)
-                    .collect(Collectors.toList());
-        }
-        return this.productRepository.getFilteredProductsCategories(categorias, orden, rango.get(0), rango.get(1))
+    public List<ProductDto> searchProducts(String producto) {
+        return this.productRepository.searchProducts(producto)
                 .stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());
@@ -66,7 +60,32 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public ProductDto getProductById(String id) {
-        return convertEntityToDto(this.productRepository.findById(id).get());
+    public List<ProductDto> getFilteredProducts(List<String> categorias, String orden, List<String> rango, Integer paginacion) {
+        paginacion = (paginacion-1) * 12;
+        if (categorias.isEmpty()) {
+            return this.productRepository.getFilteredProducts(orden, rango.get(0), rango.get(1), paginacion)
+                    .stream()
+                    .map(this::convertEntityToDto)
+                    .collect(Collectors.toList());
+        }
+        return this.productRepository.getFilteredProductsCategories(categorias, orden, rango.get(0), rango.get(1), paginacion)
+                .stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    @Override
+    public Integer getFilteredProductsLength(List<String> categorias, List<String> rango) {
+        if(categorias.isEmpty()) {
+            return this.productRepository.getFilteredProductsLength(rango.get(0), rango.get(1));
+        }
+        return this.productRepository.getFilteredProductsCategoriesLength(categorias, rango.get(0), rango.get(1));
+    }
+
+    @Transactional
+    @Override
+    public ProductDto getProductById(String slug_producto) {
+        return convertEntityToDto(this.productRepository.findBySlug(slug_producto));
     }
 }

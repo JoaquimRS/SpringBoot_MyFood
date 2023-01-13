@@ -36,18 +36,24 @@ public class ProductController {
     }
 
     @GetMapping("/filtro")
-    public ProductDto.MultipleProductos getFilteredProducts(@RequestParam List<String> categorias, @RequestParam String orden, @RequestParam List<String> rango) {
-        return ProductDto.MultipleProductos
+    public ProductDto.MultipleProductosPagination getFilteredProducts(@RequestParam List<String> categorias, @RequestParam String orden, @RequestParam List<String> rango, @RequestParam String paginacion) {
+        return ProductDto.MultipleProductosPagination
                 .builder()
-                .productos(pService.getFilteredProducts(categorias,orden,rango))
+                .productos(pService.getFilteredProducts(categorias,orden,rango,Integer.parseInt(paginacion)))
+                .pages((int) Math.ceil((float)pService.getFilteredProductsLength(categorias, rango)/12))
                 .build();
     }
 
-    @GetMapping("/{id_producto}")
-    public ProductDto.SingleProducto getProductoById(@PathVariable String id_producto) {
+    @GetMapping("/search/{producto}")
+    public List<ProductDto> searchProducts(@PathVariable String producto) {
+        return pService.searchProducts(producto);
+    }
+
+    @GetMapping("/{slug_producto}")
+    public ProductDto.SingleProducto getProductoById(@PathVariable String slug_producto) {
         return ProductDto.SingleProducto
                 .builder()
-                .producto(pService.getProductById(id_producto))
+                .producto(pService.getProductById(slug_producto))
                 .build();
     }
 
