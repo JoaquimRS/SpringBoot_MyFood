@@ -26,8 +26,8 @@ public class ProductEntity {
     @Id
     private String id_producto;
 
-    @Column(name = "imagen")
-    private String imagen;
+    @Column(name = "icono")
+    private String icono;
 
     @Column(name = "nombre")
     private String nombre;
@@ -67,12 +67,12 @@ public class ProductEntity {
     private Set<OrderProductEntity> productos_pedidos;
 
     @Builder
-    public ProductEntity(String id_product, String imagen, String nombre, BigDecimal precio, String slug) {
+    public ProductEntity(String id_product, String icono, String nombre, BigDecimal precio, String slug) {
         this.id_producto = id_product;
         this.slug = slug;
         this.nombre = nombre;
         this.precio = precio;
-        this.imagen = imagen;
+        this.icono = icono;
         this.categorias = new ArrayList<>();
         this.alergenos = new ArrayList<>();
     }

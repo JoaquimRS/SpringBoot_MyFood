@@ -17,7 +17,7 @@ public class AllergenDto {
     private String nombre;
 
     @NotNull
-    private String imagen;
+    private String icono;
 
     private List<String> productos;
 

@@ -23,8 +23,8 @@ public class AllergenEntity {
     @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "imagen")
-    private String imagen;
+    @Column(name = "icono")
+    private String icono;
 
     @ManyToMany(
             fetch = FetchType.LAZY,
@@ -34,10 +34,10 @@ public class AllergenEntity {
     private List<ProductEntity> productos = new ArrayList<>();
 
     @Builder
-    public AllergenEntity(String id_alergeno, String nombre, String imagen) {
+    public AllergenEntity(String id_alergeno, String nombre, String icono) {
         this.id_alergeno = id_alergeno;
         this.nombre = nombre;
-        this.imagen = imagen;
+        this.icono = icono;
         this.productos = new ArrayList<>();
     }
 
