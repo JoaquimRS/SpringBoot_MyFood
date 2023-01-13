@@ -21,7 +21,7 @@ public class ProductDto {
     private String id_producto;
 
     @NotNull
-    private String icono;
+    private String imagen;
 
     @NotNull
     private String nombre;
