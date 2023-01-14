@@ -5,7 +5,6 @@ import com.myfood.springboot_myfood.domain.products.dto.ProductDto;
 import com.myfood.springboot_myfood.domain.products.service.AllergenService;
 
 import com.myfood.springboot_myfood.domain.products.service.ProductService;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 

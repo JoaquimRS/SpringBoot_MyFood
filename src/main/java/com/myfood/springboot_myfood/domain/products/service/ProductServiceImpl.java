@@ -25,7 +25,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductDto convertEntityToDto(ProductEntity entity) {
         return ProductDto.builder()
                 .id_producto(entity.getId_producto())
-                .icono(entity.geticono())
+                .icono(entity.getIcono())
                 .nombre(entity.getNombre())
                 .precio(entity.getPrecio())
                 .categorias(entity.getCategorias()

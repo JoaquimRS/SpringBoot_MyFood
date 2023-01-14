@@ -1,6 +1,5 @@
 package com.myfood.springboot_myfood.domain.clients.controller;
 
-import ch.qos.logback.core.net.server.Client;
 import com.myfood.springboot_myfood.domain.clients.dto.ClientDto;
 import com.myfood.springboot_myfood.domain.clients.service.ClientService;
 import com.myfood.springboot_myfood.domain.payload.request.UpdateRequest;
@@ -10,10 +9,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.IOException;
 
 @RestController
 @RequestMapping(path = "/client")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class ClientController {
     private final ClientService cService;

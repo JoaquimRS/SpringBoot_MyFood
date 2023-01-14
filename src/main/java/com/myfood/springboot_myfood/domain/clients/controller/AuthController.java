@@ -11,6 +11,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/auth")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class AuthController {
     private final ClientService cService;

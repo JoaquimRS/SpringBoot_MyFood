@@ -1,7 +1,6 @@
 package com.myfood.springboot_myfood.domain.orders.repository;
 
 import com.myfood.springboot_myfood.domain.orders.entity.OrderEntity;
-import com.myfood.springboot_myfood.domain.orders.entity.OrderProductEntity;
 
 import java.util.List;
 
