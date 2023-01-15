@@ -68,5 +68,8 @@ public interface ProductRepository extends JpaRepository<ProductEntity, String> 
     @Query(value = "SELECT * FROM productos p WHERE p.slug = :slug",nativeQuery = true)
     public ProductEntity findBySlug(@Param("slug") String slug);
 
+    @Query(value = "SELECT * FROM productos p WHERE p.id_producto = :id_producto",nativeQuery = true)
+    public ProductEntity findById_producto(@Param("id_producto") String id_producto);
+
     
 }
