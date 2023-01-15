@@ -13,6 +13,9 @@ import com.myfood.springboot_myfood.plugins.IdGenerator;
 import com.myfood.springboot_myfood.security.AuthClientDetails;
 import com.myfood.springboot_myfood.security.jwt.JwtUtils;
 import lombok.RequiredArgsConstructor;
+
+import java.util.Base64;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,7 +63,7 @@ public class ClientServiceImpl implements ClientService {
                 .email(data.getEmail())
                 .contraseña(passwordEncoder.encode(data.getContraseña()))
                 .telefono(data.getTelefono())
-                .avatar("https://api.multiavatar.com/" + data.getNombre() + ".png")
+                .avatar("https://api.multiavatar.com/" + new String(Base64.getEncoder().encode(data.getNombre().getBytes())) + ".png")
                 .build();
 
         clientRepository.save(clientEntity);

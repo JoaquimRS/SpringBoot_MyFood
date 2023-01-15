@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(path = "/client")
 @CrossOrigin(origins = "*")
+@RequestMapping(path = "/client")
 @RequiredArgsConstructor
 public class ClientController {
     private final ClientService cService;
 
     @GetMapping(path = "/profile")
-    public ClientDto profile(@AuthenticationPrincipal AuthClientDetails authClientDetails) {
+    public ClientDto getProfile(@AuthenticationPrincipal AuthClientDetails authClientDetails) {
         return cService.currentUser(authClientDetails);
     }
 
-    @PutMapping(path = "/updateProfile")
-    public ClientDto update(@RequestBody @Valid UpdateRequest uRequest, @AuthenticationPrincipal AuthClientDetails authClientDetails) {
+    @PutMapping(path = "/profile")
+    public ClientDto updateProfile(@RequestBody @Valid UpdateRequest uRequest, @AuthenticationPrincipal AuthClientDetails authClientDetails) {
         return cService.update(uRequest, authClientDetails);
     }
 }

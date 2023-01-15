@@ -36,7 +36,6 @@ public class OrderController {
     
     @GetMapping
     public OrderDto.MultipleOrders getOrders(@AuthenticationPrincipal AuthClientDetails authClientDetails) {
-        
         return OrderDto.MultipleOrders
                 .builder()
                 .orders(oService.getUserOrders(cService.currentUser(authClientDetails).getId_cliente()))

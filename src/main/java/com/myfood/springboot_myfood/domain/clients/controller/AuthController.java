@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(path = "/auth")
 @CrossOrigin(origins = "*")
+@RequestMapping(path = "/auth")
 @RequiredArgsConstructor
 public class AuthController {
     private final ClientService cService;
