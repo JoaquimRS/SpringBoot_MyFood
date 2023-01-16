@@ -7,6 +7,8 @@ import com.myfood.springboot_myfood.domain.payload.request.UpdateRequest;
 import com.myfood.springboot_myfood.domain.payload.response.JWTResponse;
 import com.myfood.springboot_myfood.security.AuthClientDetails;
 
+import java.io.IOException;
+
 public interface ClientService {
     JWTResponse registration(final SignUpRequest data);
     JWTResponse login(final LoginRequest credentials);

@@ -21,12 +21,12 @@ services:
     restart: always
     working_dir: /app
     ports:
-      - 8080:8080
+      - 3000:8080
     networks:
       - vlsg_network
     volumes:
       - ./backend/spring:/app
-      - ./configuration/spring:/app/src/main/resources
+      - ./configuration/spring/application.properties:/app/src/main/resources/application.properties
     command: "mvn spring-boot:run"
     depends_on:
       - db

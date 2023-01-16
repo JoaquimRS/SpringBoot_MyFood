@@ -41,15 +41,15 @@ public class ReservesController {
     private ClientService cService;
 
     @GetMapping
-    ReserveDto.MultipleReserva getReserves(@AuthenticationPrincipal AuthClientDetails authClientDetails) {
+    ReserveDto.MultipleReserva getReserves() {
         return ReserveDto.MultipleReserva
                 .builder()
-                .reservas(this.reserveService.getReserves(cService.currentUser(authClientDetails).getId_cliente()))
+                .reservas(this.reserveService.getReserves())
                 .build();
     }
 
     @GetMapping("/getBannedDays")
-    List<Object> getBannedDays(@RequestParam Integer comensales, @RequestParam String servicio) {
+    List<Object> getHolidays(@RequestParam Integer comensales, @RequestParam String servicio) {
         return this.reserveService.getHolidays(comensales, servicio);
     }
 
@@ -62,12 +62,12 @@ public class ReservesController {
     }
 
     @GetMapping(value = "/{id_reserva}")
-    public ResponseEntity<?> getReserve(@PathVariable String id_reserva) {
+    public ResponseEntity<?> getReserva(@PathVariable String id_reserva) {
         return new ResponseEntity<>(this.reserveService.getReserve(id_reserva), HttpStatus.OK);
     }
 
     @GetMapping(value ="/pdf/{id_reserva}")
-    public ResponseEntity<?> getPDFReserve(@PathVariable String id_reserva) {
+    public ResponseEntity<?> getPDFReserva(@PathVariable String id_reserva) {
         ReserveDto reserve = this.reserveService.getReserve(id_reserva);
         List<JsonObject> list = new ArrayList<>();
 

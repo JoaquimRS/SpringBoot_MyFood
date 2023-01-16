@@ -14,8 +14,5 @@ public interface ProductService {
 
     Integer getFilteredProductsLength(List<String> categorias, List<String> rango);
 
-    ProductDto getProductBySlug(String slug_producto);
-
-    ProductDto getProductById(String id_producto);
-
+    ProductDto getProductById(String slug_producto);
 }

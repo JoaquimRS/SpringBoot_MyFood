@@ -5,6 +5,7 @@ import com.myfood.springboot_myfood.domain.products.dto.ProductDto;
 import com.myfood.springboot_myfood.domain.products.service.AllergenService;
 
 import com.myfood.springboot_myfood.domain.products.service.ProductService;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
@@ -49,10 +50,10 @@ public class ProductController {
     }
 
     @GetMapping("/{slug_producto}")
-    public ProductDto.SingleProducto getProductDetails(@PathVariable String slug_producto) {
+    public ProductDto.SingleProducto getProductoById(@PathVariable String slug_producto) {
         return ProductDto.SingleProducto
                 .builder()
-                .producto(pService.getProductBySlug(slug_producto))
+                .producto(pService.getProductById(slug_producto))
                 .build();
     }
 
@@ -65,7 +66,7 @@ public class ProductController {
     }
 
     @GetMapping("/alergenos/{id_alergeno}")
-    public AllergenDto.SingleAllergen getAllergen(@PathVariable String id_alergeno) {
+    public AllergenDto.SingleAllergen getAlergeno(@PathVariable String id_alergeno) {
         return AllergenDto.SingleAllergen
                 .builder()
                 .allergen(aService.getAllergenById(id_alergeno))

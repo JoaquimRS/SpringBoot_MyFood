@@ -1,12 +1,17 @@
 package com.myfood.springboot_myfood.domain.orders.service;
 
 import com.myfood.springboot_myfood.domain.orders.dto.OrderDto;
+import com.myfood.springboot_myfood.domain.orders.dto.OrderProductDto;
 import com.myfood.springboot_myfood.domain.orders.entity.OrderEntity;
 import com.myfood.springboot_myfood.domain.orders.entity.OrderProductEntity;
 import com.myfood.springboot_myfood.domain.orders.repository.OrderRepository;
+import com.myfood.springboot_myfood.domain.products.entity.ProductEntity;
+import com.myfood.springboot_myfood.domain.products.repository.ProductRepository;
 import com.myfood.springboot_myfood.domain.products.service.ProductService;
+import com.myfood.springboot_myfood.domain.reserva.entity.ReserveEntity;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +19,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 

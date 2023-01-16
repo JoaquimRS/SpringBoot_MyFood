@@ -41,9 +41,9 @@ public class ReserveServiceImpl implements ReserveService {
     }
 
     @Override
-    public List<ReserveDto> getReserves(String id_client) {
+    public List<ReserveDto> getReserves() {
         return this.reserveRepository
-                .findById_cliente(id_client)
+                .findAll()
                 .stream()
                 .map(this::convertEntityToDto)
                 .toList();

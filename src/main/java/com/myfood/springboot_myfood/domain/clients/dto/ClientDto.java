@@ -1,5 +1,6 @@
 package com.myfood.springboot_myfood.domain.clients.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.myfood.springboot_myfood.domain.common.utils.BaseUtils;
 import lombok.*;
 

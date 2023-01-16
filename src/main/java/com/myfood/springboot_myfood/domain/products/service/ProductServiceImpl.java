@@ -5,6 +5,7 @@ import com.myfood.springboot_myfood.domain.products.entity.AllergenEntity;
 import org.springframework.stereotype.Service;
 
 import com.myfood.springboot_myfood.domain.categories.entity.CategoryEntity;
+import com.myfood.springboot_myfood.domain.orders.entity.OrderEntity;
 import com.myfood.springboot_myfood.domain.products.dto.ProductDto;
 import com.myfood.springboot_myfood.domain.products.entity.ProductEntity;
 import com.myfood.springboot_myfood.domain.products.repository.ProductRepository;
@@ -84,13 +85,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public ProductDto getProductBySlug(String slug_producto) {
-        return convertEntityToDto(this.productRepository.findBySlug(slug_producto));
-    }
-
-    @Transactional
-    @Override
     public ProductDto getProductById(String slug_producto) {
-        return convertEntityToDto(this.productRepository.findById_producto(slug_producto));
+        return convertEntityToDto(this.productRepository.findBySlug(slug_producto));
     }
 }

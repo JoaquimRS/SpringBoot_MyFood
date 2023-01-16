@@ -1,5 +1,6 @@
 package com.myfood.springboot_myfood.domain.clients.service;
 
+import ch.qos.logback.core.net.server.Client;
 import com.myfood.springboot_myfood.domain.clients.dto.ClientDto;
 import com.myfood.springboot_myfood.domain.clients.entity.ClientEntity;
 import com.myfood.springboot_myfood.domain.clients.repository.ClientRepository;
