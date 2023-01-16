@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface ReserveService {
-    List<ReserveDto> getReserves();
+    List<ReserveDto> getReserves(String id_client);
     List<Object> getHolidays(Integer comensales, String servicio);
 
     ReserveDto getReserve(String id_reserva);

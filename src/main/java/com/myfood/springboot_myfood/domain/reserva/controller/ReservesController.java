@@ -41,10 +41,10 @@ public class ReservesController {
     private ClientService cService;
 
     @GetMapping
-    ReserveDto.MultipleReserva getReserves() {
+    ReserveDto.MultipleReserva getReserves(@AuthenticationPrincipal AuthClientDetails authClientDetails) {
         return ReserveDto.MultipleReserva
                 .builder()
-                .reservas(this.reserveService.getReserves())
+                .reservas(this.reserveService.getReserves(cService.currentUser(authClientDetails).getId_cliente()))
                 .build();
     }
 

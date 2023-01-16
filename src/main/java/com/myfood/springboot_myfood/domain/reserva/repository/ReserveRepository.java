@@ -12,6 +12,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReserveRepository extends JpaRepository<ReserveEntity, String> {
+    @Query(value = "SELECT * FROM reservas r WHERE id_cliente = :id_cliente", nativeQuery = true)
+    public List<ReserveEntity> findById_cliente(@Param("id_cliente") String id_cliente);
+
     @Query(value = "SELECT fecha FROM festivos", nativeQuery = true)
     public List<?> getHolidays();
 
