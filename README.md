@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://imgs.search.brave.com/DphGQWcBBoYtG0TN_eZLT0LdQtuwiHbMeW6kH_2muh4/rs:fit:600:315:1/g:ce/aHR0cHM6Ly9uaWl4/ZXIuY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDIwLzExL3Nw/cmluZy1ib290LnBu/Zw" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://spring.io/projects/spring-boot" target="_blank"><img src="https://imgs.search.brave.com/DphGQWcBBoYtG0TN_eZLT0LdQtuwiHbMeW6kH_2muh4/rs:fit:600:315:1/g:ce/aHR0cHM6Ly9uaWl4/ZXIuY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDIwLzExL3Nw/cmluZy1ib290LnBu/Zw" width="400" alt="Laravel Logo"></a></p>
 
 [spring]: https://spring.io/projects/spring-boot
 [hibernate]: https://hibernate.org/orm/
@@ -30,7 +30,7 @@ The available endpoints are:
     <th>Response</th>
   </tr>
   <tr>
-    <th colspan="6" class="title" class="title">Clients</th>
+    <th colspan="6" class="title" style="background: #f2f2f2;">Clients</th>
   </tr>
   <tr>
     <td>getProfile()</td>
@@ -49,7 +49,7 @@ The available endpoints are:
     <td>[ User Information + Token ]</td>
   </tr>
   <tr>
-    <th colspan="6" class="title">Categories</th>
+    <th colspan="6" class="title" style="background: #f2f2f2;">Categories</th>
   </tr>
   <tr>
     <td>getCategories()</td>
@@ -60,7 +60,7 @@ The available endpoints are:
     <td>[ Categories ]</td>
   </tr>
   <tr>
-    <th colspan="6" class="title">Allergens</th> 
+    <th colspan="6" class="title" style="background: #f2f2f2;">Allergens</th> 
   </tr>
   <tr>
     <td>getAllergens()</td>
@@ -79,7 +79,7 @@ The available endpoints are:
     <td>[ Allergen ]</td>
   </tr>
   <tr>
-    <th colspan="6" class="title">Productos</th>
+    <th colspan="6" class="title" style="background: #f2f2f2;">Productos</th>
   </tr>
   <tr>
     <td>getProducts()</td>
@@ -114,7 +114,7 @@ The available endpoints are:
     <td>[ Producto ]</td>
   </tr>
   <tr>
-    <th colspan="6" class="title">Auth</th>
+    <th colspan="6" class="title" style="background: #f2f2f2;">Auth</th>
   </tr>
   <tr>
     <td>register()</td>
@@ -133,7 +133,7 @@ The available endpoints are:
     <td>[ User Information + Token ]</td>
   </tr>
   <tr>
-    <th colspan="6" class="title">Orders</th>
+    <th colspan="6" class="title" style="background: #f2f2f2;">Orders</th>
   </tr>
   <tr>
     <td>getOrders()</td>
@@ -152,7 +152,7 @@ The available endpoints are:
     <td>[ { msg: "Pedido Creado" } ]</td>
   </tr>
   <tr>
-    <th colspan="6" class="title">Reserves</th>
+    <th colspan="6" class="title" style="background: #f2f2f2;">Reserves</th>
   </tr>
   <tr>
     <td>getReserves()</td>
@@ -236,38 +236,18 @@ To be launched simply run the `mvn spring-boot:run` in your terminal inside the 
 
 ## AUTHORS
 
-<div class="authors">
-    <div>
-  <a href="https://github.com/gfmois"><img src="https://avatars.githubusercontent.com/u/102977172?s=400&v=4" alt="Creator gfmois" width="150" height="150"></a>
-  <h3>gfmois</h3>
-</div>
-<div>
-  <a href="https://github.com/JoaquimRS"><img src="https://avatars.githubusercontent.com/u/94555035?v=4" alt="Creator JoaquimRS" width="150" height="150"></a>
-  <h3>JoaquimRS</h3>
-</div>
-</div>
-
-<style>
-    .title {
-        background: #f2f2f2;
-    }
-
-    .authors {
-        display: flex;
+<div class="authors" style="display: flex;
         align-items: center;
         margin: 10px;
         flex-direction: row;
         justify-content: center;
-        gap: 50px
-    }
-
-    .authors > div {
-        text-align: center;
-    }
-
-    img {
-        border-radius: 50%;
-        margin-bottom: 10px;
-    }
-
-</style>
+        gap: 50px;">
+<div style="text-align:center;">
+  <a href="https://github.com/gfmois"><img style="margin-bottom: 10px;" src="https://avatars.githubusercontent.com/u/102977172?s=400&v=4" alt="Creator gfmois" width="150" height="150"></a>
+  <h3>gfmois</h3>
+</div>
+<div style="text-align: center;">
+  <a href="https://github.com/JoaquimRS"><img style="margin-bottom: 10px;" src="https://avatars.githubusercontent.com/u/94555035?v=4" alt="Creator JoaquimRS" width="150" height="150"></a>
+  <h3>JoaquimRS</h3>
+</div>
+</div>
