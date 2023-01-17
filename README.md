@@ -209,7 +209,7 @@ The available endpoints are:
 
 - JWT Auth
 - Guards On Routes
-- Served Dockerized
+- Server Dockerized
 - Working as a submodule of [MyFood]
 
 ## USAGE
